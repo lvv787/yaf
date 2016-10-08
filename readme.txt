@@ -5,4 +5,4 @@
 	yaf.environ="product"
 4.重启Webserver;
 5.访问http://yourhost/yaf-demo/,出现Hellow Word!, 表示运行成功,否则请查看php错误日志;
-6.dfljlkjlkjklkljl
+6.df
