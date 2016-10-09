@@ -11,31 +11,31 @@ class SamplePlugin extends Yaf\Plugin_Abstract
 
     public function routerStartup(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response)
     {
-        echo 'router start -------------------';
+//        echo 'router start -------------------';
     }
 
     public function routerShutdown(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response)
     {
-        echo 'router shutdown -------------------';
+//        echo 'router shutdown -------------------';
     }
 
     public function dispatchLoopStartup(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response)
     {
-        echo 'dispatch loop startup -------------------';
+//        echo 'dispatch loop startup -------------------';
     }
 
     public function preDispatch(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response)
     {
-        echo 'pre dispatch -------------------';
+//        echo 'pre dispatch -------------------';
     }
 
     public function postDispatch(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response)
     {
-        echo 'post dispathch -------------------';
+//        echo 'post dispathch -------------------';
     }
 
     public function dispatchLoopShutdown(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response)
     {
-        echo 'dispatch loop shutdown -------------------';
+//        echo 'dispatch loop shutdown -------------------';
     }
 }
