@@ -21,7 +21,8 @@ class IndexController extends Yaf\Controller_Abstract
     public function indexAction($name = "Stranger")
     {
 //        yaf\Loader::import(APPLICATION_PATH."/application/library/Tool/Http.php");
-        echo Http::getHttpHost();
+//        echo Http::getHttpHost();
+		echo Tool\Http::getHttpHost()."***********";
         return false;
         //1. fetch query
         $get = $this->getRequest()->getQuery("get", "default value");
