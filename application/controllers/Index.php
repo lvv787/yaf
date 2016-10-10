@@ -6,11 +6,20 @@
  * @desc 默认控制器
  * @see http://www.php.net/manual/en/class.yaf-controller-abstract.php
  */
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
 class IndexController extends Yaf\Controller_Abstract
 {
+    protected $log = null;
+
     public function init()
     {
-        echo '******index init*******';
+//        echo '******index init*******';
+        $this->log = new Logger('yaf');
+        if (Yaf\Registry::get('config')->get('application.monolog')) {
+            $this->log->pushHandler(new StreamHandler('application/logs/yaf.log', Logger::WARNING));
+        }
     }
 
     /**
@@ -22,7 +31,7 @@ class IndexController extends Yaf\Controller_Abstract
     {
         yaf\Loader::import("Tool/Http.php");//这句在win下开启   mac下不开启
 //        echo Http::getHttpHost();
-        echo Tool\Http::getHttpHost()."***********";
+        echo Tool\Http::getHttpHost() . "***********";
         return false;
         //1. fetch query
         $get = $this->getRequest()->getQuery("get", "default value");
@@ -34,7 +43,7 @@ class IndexController extends Yaf\Controller_Abstract
         $this->getView()->assign("content", $model->selectSample());
         $this->getView()->assign("name", $name);
 
-        $this->forward('Index','Index','show');
+        $this->forward('Index', 'Index', 'show');
 //        echo '/////////index index//////////';
 
         //4. render by Yaf, 如果这里返回FALSE, Yaf将不会调用自动视图引擎Render模板
@@ -42,8 +51,16 @@ class IndexController extends Yaf\Controller_Abstract
         return TRUE;
     }
 
-    public function showAction(){
+    public function showAction()
+    {
         echo 'show **********';
+        return false;
+    }
+
+    public function logAction()
+    {
+        $this->log->warn('Foo');
+//        $this->log->error('Bar');
         return false;
     }
 }

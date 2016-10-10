@@ -39,4 +39,9 @@ class Bootstrap extends Yaf\Bootstrap_Abstract
         //在这里注册自己的view控制器，例如smarty,firekylin
 //        $dispatcher->getInstance()->disableView();
     }
+
+    public function _initLoader(Yaf\Dispatcher $dispatcher)
+    {
+        require APPLICATION_PATH.'/vendor/autoload.php';
+    }
 }
