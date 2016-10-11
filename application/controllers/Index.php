@@ -6,20 +6,13 @@
  * @desc 默认控制器
  * @see http://www.php.net/manual/en/class.yaf-controller-abstract.php
  */
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
+
 
 class IndexController extends Yaf\Controller_Abstract
 {
-    protected $log = null;
-
     public function init()
     {
 //        echo '******index init*******';
-        $this->log = new Logger('yaf');
-        if (Yaf\Registry::get('config')->get('application.monolog')) {
-            $this->log->pushHandler(new StreamHandler('application/logs/yaf.log', Logger::WARNING));
-        }
     }
 
     /**
@@ -59,8 +52,6 @@ class IndexController extends Yaf\Controller_Abstract
 
     public function logAction()
     {
-        $this->log->warn('Foo');
-//        $this->log->error('Bar');
         return false;
     }
 }
