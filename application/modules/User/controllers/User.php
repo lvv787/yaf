@@ -82,10 +82,10 @@ class UserController extends Yaf\Controller_Abstract
     {
         $starTime = Tool\Lvtime::getMicTime();
 //        echo Tool\Http::curlRequest("127.0.0.1:8580/user/user/index", ['a'=>343,'b'=>55],"POST")."\n";
-        echo Tool\Http::curlRequest("127.0.0.1:8580/user/user/index", "a=123&b=2323","POST")."\n";
+        echo Tool\Http::curlRequest("127.0.0.1:8580/user/user/index", "a=123&b=2323", "POST") . "\n";
 //        echo Tool\Http::curlRequest("127.0.0.1:8580/user/user/index?a=123123&b=454545")."\n";
         $overTime = Tool\Lvtime::getMicTime();
-        echo "time========>".($overTime - $starTime)."\n";
+        echo "time========>" . ($overTime - $starTime) . "\n";
     }
 
     public function curl2Action()
@@ -107,14 +107,23 @@ class UserController extends Yaf\Controller_Abstract
         // 200
 //        echo $res->getHeaderLine('content-type') . '+++';
         // 'application/json; charset=utf8'
-        echo $res->getBody()."\n";
+        echo $res->getBody() . "\n";
         $overTime = Tool\Lvtime::getMicTime();
-        echo "time========>".($overTime - $starTime)."\n";
+        echo "time========>" . ($overTime - $starTime) . "\n";
 
 //        $request = new \GuzzleHttp\Psr7\Request('GET', 'http://httpbin.org');
 //        $promise = $client->sendAsync($request)->then(function ($response) {
 //            echo 'I completed! ' . $response->getBody();
 //        });
 //        $promise->wait();
+    }
+
+    public function getConfigAction()
+    {
+        $starTime = Tool\Lvtime::getMicTime();
+        $string = file_get_contents(APPLICATION_PATH."/conf/lvv.json");
+        var_dump(json_decode($string,true));
+        $overTime = Tool\Lvtime::getMicTime();
+        echo "time========>" . ($overTime - $starTime) . "\n";
     }
 }
