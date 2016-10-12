@@ -30,14 +30,20 @@ class UserController extends Yaf\Controller_Abstract
     public function indexAction()
     {
         $params = $this->getRequest()->getParams();//当静态路由时用这个
+        echo "static route get params \n";
         var_dump($params);
         $get = $this->getRequest()->getQuery();//当常规路由时用这个
+        echo "general route get method \n";
         var_dump($get);
+        $post = $this->getRequest()->getPost();
+        echo "post method \n";
+        var_dump($post);
 //        $post = $this->getRequest()->getPost();
 //        $file = $this->getRequest()->getFiles();
         $allParams = $this->getRequest()->get("a");//通用获取不同形式请求的数据,但必须指定一个参数
+        echo "get one param's value \n";
         var_dump($allParams);
-        echo '////user user index/////';
+        echo "////user user index/////";
         return false;
     }
 
@@ -74,11 +80,41 @@ class UserController extends Yaf\Controller_Abstract
 
     public function curl1Action()
     {
-        echo Tool\Http::curlRequest("127.0.0.1:8580/user/user/index","a=110");
+        $starTime = Tool\Lvtime::getMicTime();
+//        echo Tool\Http::curlRequest("127.0.0.1:8580/user/user/index", ['a'=>343,'b'=>55],"POST")."\n";
+        echo Tool\Http::curlRequest("127.0.0.1:8580/user/user/index", "a=123&b=2323","POST")."\n";
+//        echo Tool\Http::curlRequest("127.0.0.1:8580/user/user/index?a=123123&b=454545")."\n";
+        $overTime = Tool\Lvtime::getMicTime();
+        echo "time========>".($overTime - $starTime)."\n";
     }
 
     public function curl2Action()
     {
         echo Tool\Http::curlRequest("127.0.0.1:8580");
+    }
+
+    public function curl3Action()
+    {
+        $starTime = Tool\Lvtime::getMicTime();
+        $client = new \GuzzleHttp\Client();
+        $res = $client->request('POST', '127.0.0.1:8580/user/user/index', [
+            'form_params' => [
+                'a' => 343434,
+                'b' => 676676
+            ]
+        ]);
+//        echo $res->getStatusCode() . '+++';
+        // 200
+//        echo $res->getHeaderLine('content-type') . '+++';
+        // 'application/json; charset=utf8'
+        echo $res->getBody()."\n";
+        $overTime = Tool\Lvtime::getMicTime();
+        echo "time========>".($overTime - $starTime)."\n";
+
+//        $request = new \GuzzleHttp\Psr7\Request('GET', 'http://httpbin.org');
+//        $promise = $client->sendAsync($request)->then(function ($response) {
+//            echo 'I completed! ' . $response->getBody();
+//        });
+//        $promise->wait();
     }
 }

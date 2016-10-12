@@ -2,7 +2,7 @@
 //ini_set("yaf.use_namespace",1);//没有作用是因为其设置范围只能在php.ini里
 
 ini_set("display_errors", 1);
-//error_reporting(E_ALL);
+error_reporting(E_ALL);
 
 define('APPLICATION_PATH', dirname(__FILE__));
 

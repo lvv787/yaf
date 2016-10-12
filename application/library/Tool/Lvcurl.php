@@ -37,7 +37,9 @@ class LvCurl
 
     /**
      * 基础发起curl请求函数
-     * @param int $is_post 是否是post请求
+     * 
+     * @param int $is_post
+     * @return mixed
      */
     private function doRequest($is_post = 0)
     {
@@ -54,7 +56,7 @@ class LvCurl
             curl_setopt($ch, CURLOPT_POSTFIELDS, self::$data);
         }
 
-        $data = curl_exec($ch);//运行curl    
+        $data = curl_exec($ch);//运行curl
         curl_close($ch);
         return $data;
     }
