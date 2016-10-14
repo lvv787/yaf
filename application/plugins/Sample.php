@@ -11,6 +11,7 @@ class SamplePlugin extends Yaf\Plugin_Abstract
 
     public function routerStartup(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response)
     {
+        
 //        echo 'router start -------------------';
     }
 
@@ -37,5 +38,6 @@ class SamplePlugin extends Yaf\Plugin_Abstract
     public function dispatchLoopShutdown(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response)
     {
 //        echo 'dispatch loop shutdown -------------------';
+        
     }
 }

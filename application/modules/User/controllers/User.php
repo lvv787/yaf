@@ -81,11 +81,20 @@ class UserController extends Yaf\Controller_Abstract
     public function curl1Action()
     {
         $starTime = Tool\Lvtime::getMicTime();
+        xhprof_enable(XHPROF_FLAGS_CPU + XHPROF_FLAGS_MEMORY);
+
 //        echo Tool\Http::curlRequest("127.0.0.1:8580/user/user/index", ['a'=>343,'b'=>55],"POST")."\n";
         echo Tool\Http::curlRequest("127.0.0.1:8580/user/user/index", "a=123&b=2323", "POST") . "\n";
 //        echo Tool\Http::curlRequest("127.0.0.1:8580/user/user/index?a=123123&b=454545")."\n";
         $overTime = Tool\Lvtime::getMicTime();
         echo "time========>" . ($overTime - $starTime) . "\n";
+        $xhprof_data = xhprof_disable();
+        include_once "/Users/luoweiwei/source/php-ext/longxinH.xhprof/xhprof_lib/utils/xhprof_lib.php";
+        include_once "/Users/luoweiwei/source/php-ext/longxinH.xhprof/xhprof_lib/utils/xhprof_runs.php";
+        $objXhprofRun = new XHProfRuns_Default();//数据会保存在php.ini中xhprof.output_dir设置的目录去中
+        $run_id = $objXhprofRun->save_run($xhprof_data, "yaf_curl1");
+        echo "http://127.0.0.1:8980/index.php?run={$run_id}&source=yaf_curl1\n";
+
     }
 
     public function curl2Action()
@@ -95,7 +104,9 @@ class UserController extends Yaf\Controller_Abstract
 
     public function curl3Action()
     {
-        $starTime = Tool\Lvtime::getMicTime();
+//        phpinfo();exit;
+//        $starTime = Tool\Lvtime::getMicTime();
+//        xhprof_enable(XHPROF_FLAGS_CPU + XHPROF_FLAGS_MEMORY);
         $client = new \GuzzleHttp\Client();
         $res = $client->request('POST', '127.0.0.1:8580/user/user/index', [
             'form_params' => [
@@ -108,14 +119,20 @@ class UserController extends Yaf\Controller_Abstract
 //        echo $res->getHeaderLine('content-type') . '+++';
         // 'application/json; charset=utf8'
         echo $res->getBody() . "\n";
-        $overTime = Tool\Lvtime::getMicTime();
-        echo "time========>" . ($overTime - $starTime) . "\n";
+//        $overTime = Tool\Lvtime::getMicTime();
+//        echo "time========>" . ($overTime - $starTime) . "\n";
 
 //        $request = new \GuzzleHttp\Psr7\Request('GET', 'http://httpbin.org');
 //        $promise = $client->sendAsync($request)->then(function ($response) {
 //            echo 'I completed! ' . $response->getBody();
 //        });
 //        $promise->wait();
+//        $xhprof_data = xhprof_disable();
+//        include_once "/Users/luoweiwei/source/php-ext/longxinH.xhprof/xhprof_lib/utils/xhprof_lib.php";
+//        include_once "/Users/luoweiwei/source/php-ext/longxinH.xhprof/xhprof_lib/utils/xhprof_runs.php";
+//        $objXhprofRun = new XHProfRuns_Default();//数据会保存在php.ini中xhprof.output_dir设置的目录去中
+//        $run_id = $objXhprofRun->save_run($xhprof_data, "yaf_curl3");
+//        echo "http://127.0.0.1:8980/index.php?run={$run_id}&source=yaf_curl3\n";
     }
 
     public function getConfigAction()
