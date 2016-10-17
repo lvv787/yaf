@@ -11,7 +11,8 @@ class SamplePlugin extends Yaf\Plugin_Abstract
 
     public function routerStartup(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response)
     {
-        
+        yaf\Loader::import("Tool/Lvtime.php");//这句在win下开启   mac下不开启
+        yaf\Loader::import("Tool/SerException.php");
 //        echo 'router start -------------------';
     }
 

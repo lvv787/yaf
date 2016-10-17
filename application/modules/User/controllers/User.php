@@ -9,6 +9,11 @@
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
+use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
+
+use Tool\SerException;
+
 class UserController extends Yaf\Controller_Abstract
 {
     protected $log = null;
@@ -60,7 +65,6 @@ class UserController extends Yaf\Controller_Abstract
         if (!Yaf\Registry::get('config')->get('application.monolog')) {
             $this->log->pushHandler(new StreamHandler('application/logs/yaf.log', Logger::WARNING));
         }
-
         $this->log->warn('Foo', array('a' => 123, 'b' => 3242));
 //        $this->log->err('Bar', array('b' => 4545, 'c' => 333));
         $overTime = Tool\Lvtime::getMicTime();
@@ -76,6 +80,11 @@ class UserController extends Yaf\Controller_Abstract
         $overTime = Tool\Lvtime::getMicTime();
         echo $overTime - $starTime;
         return false;
+    }
+
+    public function writeLog3Action()
+    {
+        //
     }
 
     public function curl1Action()
@@ -138,9 +147,20 @@ class UserController extends Yaf\Controller_Abstract
     public function getConfigAction()
     {
         $starTime = Tool\Lvtime::getMicTime();
-        $string = file_get_contents(APPLICATION_PATH."/conf/lvv.json");
-        var_dump(json_decode($string,true));
+        $string = file_get_contents(APPLICATION_PATH . "/conf/lvv.json");
+        var_dump(json_decode($string, true));
         $overTime = Tool\Lvtime::getMicTime();
         echo "time========>" . ($overTime - $starTime) . "\n";
+    }
+
+    public function testExceptionAction()
+    {
+        try {
+            if (!isset($_GET['a'])) {
+                Http::getError();
+            }
+        }catch (SerException $e){
+            $e->sendHttpResponse();
+        }
     }
 }

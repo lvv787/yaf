@@ -11,11 +11,12 @@
 class Bootstrap extends Yaf\Bootstrap_Abstract
 {
 
-    public function _initConfig()
+    public function _initConfig(Yaf\Dispatcher $dispatcher)
     {
         //把配置保存起来
         $arrConfig = Yaf\Application::app()->getConfig();
         Yaf\Registry::set('config', $arrConfig);
+
     }
 
     public function _initPlugin(Yaf\Dispatcher $dispatcher)
@@ -27,6 +28,7 @@ class Bootstrap extends Yaf\Bootstrap_Abstract
 
     public function _initRoute(Yaf\Dispatcher $dispatcher)
     {
+        //$dispatcher->setDefaultModule('Index')->setDefaultController('Index')->setDefaultAction('index');
         //在这里注册自己的路由协议,默认使用简单路由
 //        $router = $dispatcher->getInstance()->getRouter();
 ////        $r = new Yaf\Route\Simple('m','c','a');
