@@ -153,13 +153,20 @@ class UserController extends Yaf\Controller_Abstract
         echo "time========>" . ($overTime - $starTime) . "\n";
     }
 
+    public function jsonAciton()
+    {
+        $get = $this->getRequest()->getQuery();//当常规路由时用这个
+
+        var_dump(Tool\Json::json2arr($get['finger_params']));
+    }
+
     public function testExceptionAction()
     {
         try {
             if (!isset($_GET['a'])) {
                 Http::getError();
             }
-        }catch (SerException $e){
+        } catch (SerException $e) {
             $e->sendHttpResponse();
         }
     }
