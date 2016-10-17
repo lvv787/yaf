@@ -138,9 +138,16 @@ class UserController extends Yaf\Controller_Abstract
     public function getConfigAction()
     {
         $starTime = Tool\Lvtime::getMicTime();
-        $string = file_get_contents(APPLICATION_PATH."/conf/lvv.json");
-        var_dump(json_decode($string,true));
+        $string = file_get_contents(APPLICATION_PATH . "/conf/lvv.json");
+        var_dump(json_decode($string, true));
         $overTime = Tool\Lvtime::getMicTime();
         echo "time========>" . ($overTime - $starTime) . "\n";
+    }
+
+    public function jsonAciton()
+    {
+        $get = $this->getRequest()->getQuery();//当常规路由时用这个
+
+        var_dump(Tool\Json::json2arr($get['finger_params']));
     }
 }
