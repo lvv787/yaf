@@ -22,6 +22,7 @@ class IndexController extends Yaf\Controller_Abstract
      */
     public function indexAction($name = "Stranger")
     {
+        echo $this->getRequest()->getMethod();exit;
         yaf\Loader::import("Tool/Http.php");//这句在win下开启   mac下不开启
 //        echo Http::getHttpHost();
         echo Tool\Http::getHttpHost() . "***********";

@@ -14,6 +14,8 @@ use Psr\Log\LogLevel;
 
 use Tool\SerException;
 
+use Yaf\Application;
+
 class UserController extends Yaf\Controller_Abstract
 {
     protected $log = null;
@@ -144,7 +146,7 @@ class UserController extends Yaf\Controller_Abstract
 //        echo "http://127.0.0.1:8980/index.php?run={$run_id}&source=yaf_curl3\n";
     }
 
-    public function getConfigAction()
+    public function getBizConfigAction()
     {
         $starTime = Tool\Lvtime::getMicTime();
         $string = file_get_contents(APPLICATION_PATH . "/conf/lvv.json");
@@ -169,5 +171,13 @@ class UserController extends Yaf\Controller_Abstract
         } catch (SerException $e) {
             $e->sendHttpResponse();
         }
+    }
+
+    public function getConfigAction(){
+        $name = Yaf\Registry::get('config')->name;
+        echo $name;
+        $api = Application::app()->getConfig()->get('api');//routerShutdown
+        echo $api;
+
     }
 }
