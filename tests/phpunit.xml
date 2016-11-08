@@ -6,14 +6,11 @@
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="false"
-         bootstrap="./bootstrap.php"
+         bootstrap="./Bootstrap.php"
 >
     <testsuites>
-        <testsuite name="unit">
-            <directory>./unit</directory>
-        </testsuite>
-        <testsuite name="acceptance">
-            <directory>./acceptance</directory>
+        <testsuite name="controllers">
+            <directory>./controllers/TestIndex.php</directory>
         </testsuite>
     </testsuites>
 </phpunit>
